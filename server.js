@@ -4,11 +4,12 @@ const express = require('express');
 
 const app = express();
 
-const GOOGLE_SEARCH_SELECTOR = '#topstuff > div > div.r5a77d > a'
+const GOOGLE_SEARCH_SELECTOR = '#topstuff > div > div.r5a77d > a';
 
-async function run() {
+(async ()=> {
 
   const browser = await puppeteer.launch({
+    args: ['--no-sandbox'],
     headless: true
   });
 
@@ -50,6 +51,4 @@ async function run() {
 
   app.listen(3000, () => console.log('Example app listening on port 3000!'))
 
-}
-
-run();
+})();
