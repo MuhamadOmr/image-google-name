@@ -15,8 +15,8 @@ const GOOGLE_SEARCH_SELECTOR = '#topstuff > div > div.r5a77d > a';
 
   const page = await browser.newPage();
 
-  async function getName(url) {
-    await page.goto(`https://www.google.com/searchbyimage?site=search&sa=X&image_url=${url}`, {
+  async function getName() {
+    await page.goto(`https://www.google.com/searchbyimage?site=search&sa=X&image_url=https%3A%2F%2Fwww.undecode.com%2Fmansour%2F1.jpg%0D%0A`, {
       waitUntil: "networkidle0",
       timeout: 3000000
     });
@@ -27,22 +27,16 @@ const GOOGLE_SEARCH_SELECTOR = '#topstuff > div > div.r5a77d > a';
     return searchValue;
   }
 
-  app.get('/name/:url', async (req, res) => {
-    const {
-      params: {
-        url
-      }
-    } = req;
+  app.get('/name', async (req, res) => {
 
     let name = '';
-    if (!url) {
+
+    name = await getName();
+    if (!name) {
       return res.status(404).json({
         error: 'url is not provided'
       });
     }
-
-
-    name = await getName(url);
 
     return res.status(200).json({
       name
