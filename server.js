@@ -15,8 +15,8 @@ const GOOGLE_SEARCH_SELECTOR = '#topstuff > div > div.r5a77d > a';
 
   const page = await browser.newPage();
 
-  async function getName(url) {
-    await page.goto(`https://www.google.com/searchbyimage?site=search&sa=X&image_url=${url}`, {
+  async function getName(picNum) {
+    await page.goto(`https://www.google.com/searchbyimage?site=search&sa=X&image_url=${encodeURI(`https://www.undecode.com/mansour/${picNum}`)}`, {
       waitUntil: "networkidle0",
       timeout: 3000000
     });
